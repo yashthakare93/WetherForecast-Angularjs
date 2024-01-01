@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="weatherApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body>
+
+    <div class="container" ng-controller="WeatherController">
+        <div class="search-box">
+            <i class='bx bxs-map'></i>
+            <input type="text" placeholder="Enter Location" ng-model="city" id="city">
+            <button ng-click="getWeather()" class='bx bx-search'></button>
+           
+        </div>
+
+        <div class="weather-box">
+            <div class="box">
+                <div class="info-weather">
+                    <div class="weather">
+                        
+                        <img ng-src="{{ getWeatherIcon(weatherData) }}">
+                        <div class="info-date-time">
+                            <span>{{ currentDate | date:'dd MMM' }}</span>
+                        </div>
+                        <p class="temprature" ng-if="weatherData.main">{{ weatherData.main.temp }}<span
+                                ng-if="weatherData.main">°C</span>
+            
+                        </p>
+                        <p class="description">{{ weatherData.weather[0].description }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="weather-details">
+            <div class="humidity">
+                <i class="bx bx-water"></i>
+                <div class="text">
+                    <div class="info-humidity">
+                        <span>{{weatherData.main.humidity}}%</span>
+                    </div>
+                    <p>Humidity</p>
+                </div>
+            </div>
+
+            <div class="wind">
+                <i class="bx bx-wind"></i>
+                <div class="text">
+                    <div class="info-wind">
+                        <span ng-if="weatherData.wind && !isNaN(weatherData.wind.speed)">
+                            {{ (weatherData.wind.speed * 3.6).toFixed(2) }} km/hr
+                        </span>
+                        <span ng-if="!weatherData.wind || isNaN(weatherData.wind.speed)">N/A</span>
+                    </div>
+                    <p>Wind Speed</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="app.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>
